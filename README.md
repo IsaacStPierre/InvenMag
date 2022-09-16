@@ -9,7 +9,7 @@ TODO: NICE TO HAVE
 1. break apart UI and API repositories with Manifest file repository
 1. install and run cypress tests
 
-# sdi-capstone-proof-of-concept
+# zprefix-proof-of-concept
 
 
 To set up application:
@@ -20,7 +20,7 @@ create volumes
 * db volume somehow
 
 * UI volume: 
-    * `docker service create  --mount 'type=bind,src=/Users/jeffhaddock/code/blended/capstone-proof/sdi-capstone-proof-of-concept/ui/src,target=/app/src'  --name capstone-ui-volume node:alpine`
+    * `docker service create  --mount 'type=bind,src=/Users/isaac/code/blended/zprefix/zprefix/ui/src,target=/app/src'  --name zprefix-ui-volume node:alpine` REVISE
 
 Need to include directions for how to 
 start up Docker containers and make 
@@ -35,5 +35,3 @@ to run against the running database (if 'docker-compose up' has been executed)
 
 Check Heroku Logs
 `heroku logs --tail -a bsdi-poc-api`
-
-initial fork
