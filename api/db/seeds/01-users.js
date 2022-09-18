@@ -1,18 +1,31 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require("bcryptjs");
 
 /**
  * @param { import("knex").Knex } knex
- * @returns { Promise<void> } 
+ * @returns { Promise<void> }
  */
- exports.seed = async function(knex) {
+exports.seed = async function (knex) {
   // Deletes ALL existing entries
 
-  let pw1 = 'password';
-  let hashedpw1 = await bcrypt.hash(pw1, 10);
+  let salt = bcrypt.genSaltSync(10);
+  let hash = bcrypt.hashSync("password", salt);
 
-  await knex('users').del()
-  await knex('users').insert([
-    {user_id: 1, first_name: 'Isaac', last_name: 'St. Pierre', username: 'isaacstpierre', password: hashedpw1},
-    {user_id: 2, first_name: 'Walter', last_name: 'White', username: 'walterwhite', password: hashedpw1},
+  await knex("items").del();
+  await knex("users").del();
+  await knex("users").insert([
+    {
+      user_id: 1,
+      first_name: "Isaac",
+      last_name: "St. Pierre",
+      username: "isaacstpierre",
+      password: hash,
+    },
+    {
+      user_id: 2,
+      first_name: "Walter",
+      last_name: "White",
+      username: "walterwhite",
+      password: hash,
+    },
   ]);
 };
