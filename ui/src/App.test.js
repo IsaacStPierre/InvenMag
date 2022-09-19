@@ -1,9 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
+import {AppProvider} from './AppContext'
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/App is running - good work:/i);
-  expect(linkElement).toBeInTheDocument();
+test('renders logo', () => {
+  render(<AppProvider><App /></AppProvider>);
+  const logo = screen.getByText("InvenMag");
+  expect(logo).toBeInTheDocument();
 });
