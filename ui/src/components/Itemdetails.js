@@ -25,7 +25,7 @@ const Itemdetails = () => {
   let [description, setDescription] = useState("");
   let [quantity, setQuantity] = useState("");
 
-  let { values, setters } = useContext(ItemContext);
+  let { values, setters } = useContext(AppContext);
   let { id } = useParams();
   let nav = useNavigate();
 

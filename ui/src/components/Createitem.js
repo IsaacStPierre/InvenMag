@@ -6,50 +6,51 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
 import { AppContext } from '../Context'
 
-const CreateBlog = () => {
+const CreateItem = () => {
 
-  // let { username } = useParams();
   let nav = useNavigate();
   let {values} = useContext(AppContext);
 
-  let [titleFeedback, setTitleFeedback] = useState('')
-  let [contentFeedback, setContentFeedback] = useState('')
+  let [nameFeedback, setNameFeedback] = useState('')
+  let [descriptionFeedback, setDescriptionFeedback] = useState('')
   let [failedFeedback, setFailedFeedback] = useState('')
 
-  let [title, setTitle] = useState('');
-  let [content, setContent] = useState('');
-  const created_at = new Date();
+  let [name, setName] = useState('');
+  let [description, setDescription] = useState('');
+  let [quantity, setQuantity] = useState(0);
+  const created_by = values.username;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     let error = false;
-    setTitleFeedback('');
-    setContentFeedback('');
+    setNameFeedback('');
+    setDescriptionFeedback('');
     setFailedFeedback('');
 
-    if(title.length < 1) {
-      setTitleFeedback('error: title must be at least 1 character\n')
+    if(name.length < 1) {
+      setNameFeedback('error: name must be at least 1 character\n')
       error = true;
     } else {
-      setTitleFeedback('')
+      setNameFeedback('')
     }
-    if(content.length < 1) {
-      setContentFeedback('error: content must be at least 1 characters\n')
+    if(description.length < 1) {
+      setDescriptionFeedback('error: description must be at least 1 characters\n')
       error = true;
     } else {
-      setContentFeedback('')
+      setDescriptionFeedback('')
     }
     if(!error) {
 
       let body = {
-        "title": title,
-        "content": content,
-        "created_at": created_at
+        "name": name,
+        "description": description,
+        "quantity": quantity,
+        "created_by": created_by
       }
 
       let res = await fetch(`${ApiUrl}/items/${values.username}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Description-Type': 'application/json' },
         body: JSON.stringify(body)
       })
 
@@ -83,8 +84,19 @@ const CreateBlog = () => {
                 value={name}
                 onChange={e => {setName(e.target.value)}}
               />
+              <label htmlFor="quantity">
+                  <Labels>Quantity:</Labels>
+              </label>
+              <StyledInput
+                type="number"
+                id="quantity"
+                placeholder="enter the quantity"
+                quantity="number"
+                value={quantity}
+                onChange={e => {setQuantity(e.target.value)}}
+              />
               <label htmlFor="description">
-                  <Labels>Content:</Labels>
+                  <Labels>Description:</Labels>
               </label>
               <StyledTextarea
                 name="text"
@@ -97,7 +109,7 @@ const CreateBlog = () => {
                 value={description}
                 onChange={e => {setDescription(e.target.value)}}
               />
-              <p>{created_at.toDateString()}</p>
+              <p>{created_by.toDateString()}</p>
               <StyledButton variant="contained" onClick={handleSubmit}> Submit </StyledButton>
             </FormContainer>
           </form>
@@ -116,7 +128,7 @@ const Background = styled.div`
   background-color: #00121C;
   height: 90vh;
   width: 75vw;
-  justify-content: center;
+  justify-description: center;
   text-align: center;
   margin: auto;
   padding-top: 12vh;
@@ -164,7 +176,7 @@ const StyledTextarea = styled.textarea`
 const FormContainer = styled.div`
   display: grid;
   grid-template-rows: 15px 15px 40px 30px 40px auto 15px 15px;
-  justify-content: center;
+  justify-description: center;
   width: 50vw;
   grid-gap: 10px;
   margin-left: auto;

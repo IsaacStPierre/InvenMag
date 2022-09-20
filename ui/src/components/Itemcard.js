@@ -26,7 +26,23 @@ Itemcard.propTypes = {
 
 export default Itemcard;
 
-const ItemTitle = styled.div`
+const Background = styled.div`
+  background-color: #2B659B;
+  width: 70vw;
+  justify-content: center;
+  margin: 20px 0px 20px 0px;
+  text-align: center;
+  display: grid;
+  grid-template-areas:
+    "A A A A   A A A A   A A A A"
+    "B B B B   B B B B   B B B B"
+    "B B B B   B B B B   B B B B";
+  :hover {
+    transform: scale(1.05);
+  }
+`
+
+const ItemName = styled.div`
   font-size: 24px;
   margin: auto;
 `;
