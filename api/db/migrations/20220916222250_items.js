@@ -5,9 +5,10 @@
 exports.up = function (knex) {
   return knex.schema.createTable("items", (table) => {
     table.increments("item_id");
+    table.integer("user_id");
     table.foreign("user_id").references("users.user_id");
     table.string("name", 250);
-    table.string("description", 500);
+    table.string("description", 1000);
     table.integer("quantity");
   });
 };

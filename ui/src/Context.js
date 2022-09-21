@@ -7,16 +7,19 @@ const AppProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("");
+  const [user_id, setUser_id] = useState(0);
   const values = {
     isLoggedIn,
     isLoading,
     username,
+    user_id
   };
 
   const setters = {
     setIsLoggedIn,
     setIsLoading,
     setUsername,
+    setUser_id
   };
 
   return (

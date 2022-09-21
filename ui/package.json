@@ -6,15 +6,12 @@
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@mui/material": "^5.10.6",
-    "@testing-library/jest-dom": "^5.16.2",
-    "@testing-library/react": "^12.1.4",
-    "@testing-library/user-event": "^13.5.0",
     "prop-types": "^15.8.1",
-    "react": "^17.0.2",
+    "react": "^18.2.0",
+    "react-icons": "^4.4.0",
     "react-router-dom": "^6.4.0",
-    "react-scripts": "5.0.0",
-    "styled-components": "^5.3.5",
-    "web-vitals": "^2.1.4"
+    "react-scripts": "^5.0.1",
+    "styled-components": "^5.3.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -42,8 +39,7 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^8.13.0",
-    "eslint-plugin-jest": "^26.1.4",
-    "eslint-plugin-react": "^7.29.4"
+    "eslint": "^8.23.1",
+    "eslint-plugin-react": "^7.31.8"
   }
 }

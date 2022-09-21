@@ -11,6 +11,9 @@ const Itemlist = () => {
   let [itemList, setItemList] = useState([]);
   let [titleText, setTitleText] = useState("All Items");
   let location = useLocation();
+  const context = useContext(AppContext);
+
+  console.log(context.values.user_id)
 
   useEffect(() => {
     setters.setIsLoading(true);

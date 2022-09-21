@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 
 const Itemcard = ({ item }) => {
     return (
-        <Link to={`/items/${item.id}`}>
+        <Link to={`/items/${item.item_id}`}>
             <Background>
                 <ItemHeader>
-                    <p style={{"text-align":"left"}}>{item.created_by}</p>
+                    <p style={{"textAlign":"left"}}></p>
                     <ItemName>{item.name}</ItemName>
-                    <p style={{"text-align":"right"}}>{item.quantity}</p>
+                    <p style={{"textAlign":"right"}}>Quantity: {item.quantity}</p>
                 </ItemHeader>
                 <ItemBody>
                     <p>{item.description.slice(0,100)}{item.description.length > 100 ? "..." : null}</p>

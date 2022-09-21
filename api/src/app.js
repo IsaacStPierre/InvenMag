@@ -1,8 +1,10 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 const bcrypt = require("bcryptjs");
 
+app.use(bodyParser.json());
 app.use(cors());
 
 const env = process.env.NODE_ENV || "development";
@@ -20,6 +22,7 @@ app.get("/items", (req, res) => {
   knex("items")
     .select("*")
     .then((data) => {
+      console.log(data)
       res.set("Access-Control-Allow-Origin", "*");
       res.status(200).send(data);
     });
@@ -55,7 +58,6 @@ app.get("/items/:itemId", (req, res) => {
 // GET items from username
 app.get("/items/:username", (req, res) => {
   let { username } = req.params;
-  // console.log(params)
   console.log(`servicing GET for /items/${username}`);
 
   knex("items")
@@ -86,10 +88,17 @@ app.post("/items/:username", async (req, res) => {
   let validreq = false;
   let validUser = false;
   let userId = 0;
-  let keys = ["name", "description", "quantity"];
+  let keys = ['created_by', "name", "description", "quantity"];
 
-  if (body[keys[0]] && body[keys[1]] && body[keys[2]]) {
+  console.log(body[keys[0]])
+  console.log(body[keys[1]])
+  console.log(body[keys[2]])
+
+  if (body[keys[0]] && body[keys[1]] && body[keys[2]] && body[keys[3]]) {
+    console.log("valid request")
     validreq = true;
+  } else {
+    console.log("invalid request")
   }
 
   if (username) {
@@ -98,9 +107,11 @@ app.post("/items/:username", async (req, res) => {
       .where("users.username", "=", username)
       .then((data) => {
         if (data.length > 0) {
+          console.log("valid user")
           validUser = true;
           userId = data[0].user_id;
         } else {
+          console.log("invalid user")
           validUser = false;
         }
       });
@@ -189,18 +200,18 @@ app.post("/users", async (req, res) => {
   let usernamePromise;
   let salt = bcrypt.genSaltSync(10);
 
+
   let keys = ["first_name", "last_name", "username", "password"];
 
   if (body[keys[0]] && body[keys[1]] && body[keys[2]] && body[keys[3]]) {
     validreq = true;
-    passwordHash = bcrypt.hashSync(body.password, salt).then((hash) => {
-      filteredBody = {
-        first_name: body[keys[0]],
-        last_name: body[keys[1]],
-        username: body[keys[2]],
-        password: hash,
-      };
-    });
+    passwordHash = bcrypt.hashSync(body.password, salt)
+    filteredBody = {
+      first_name: body[keys[0]],
+      last_name: body[keys[1]],
+      username: body[keys[2]],
+      password: passwordHash,
+    };
     usernamePromise = knex("users")
       .where("username", "=", body.username)
       .select("*")
@@ -214,6 +225,7 @@ app.post("/users", async (req, res) => {
   }
   await Promise.all([passwordHash, usernamePromise]);
   if (validreq && validUsername) {
+    console.log("valid account details")
     knex("users")
       .returning(["user_id", "first_name", "last_name", "username"])
       .insert(filteredBody)

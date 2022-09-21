@@ -8,6 +8,7 @@ import { AppContext } from '../Context'
 
 const Login = () => {
 
+  const { values, setters } = useContext(AppContext)
   const [inputUsername, setInputUsername] = useState('')
   const [inputPassword, setInputPassword] = useState('')
   const [formFeedback, setFormFeedback] = useState('')
@@ -52,7 +53,7 @@ const Login = () => {
         password: inputPassword
       }
 
-      let res = await fetch (`${ApiUrl}/login`, {
+      let res = await fetch (`${ApiUrl}/Login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
@@ -62,6 +63,13 @@ const Login = () => {
         if(await res.text() === 'authenticated') {
           context.setters.setIsLoggedIn(true);
           context.setters.setUsername(inputUsername);
+          fetch(ApiUrl + `/users/${inputUsername}`)
+          .then(res => res.json())
+          .then(data => {
+            console.log(data)
+            context.setters.setUser_id(data[0].user_id)
+          })
+          .catch(err => console.log(err))
         }
       } else if(res.status === 404){
         setFailedFeedback('username could was not found')
@@ -95,7 +103,7 @@ const Login = () => {
                 <Labels>Password:</Labels>
             </label>
             <StyledInput
-            type="password"
+            type="text"
             id="password"
             placeholder="enter your password here"
             name="text"

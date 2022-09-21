@@ -9,7 +9,7 @@ import { AppContext } from "../Context";
 import { Button } from "@mui/material";
 
 const Itemdetails = () => {
-  let [Itemdetails, setItemdetails] = useState({
+  let [Itemdetails, setItemDetails] = useState({
     name: "",
     description: "",
     quantity: "",

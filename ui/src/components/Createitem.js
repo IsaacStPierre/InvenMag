@@ -18,7 +18,7 @@ const CreateItem = () => {
   let [name, setName] = useState('');
   let [description, setDescription] = useState('');
   let [quantity, setQuantity] = useState(0);
-  const created_by = values.username;
+  const user_id = values.user_id;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,10 +42,10 @@ const CreateItem = () => {
     if(!error) {
 
       let body = {
+        "user_id": user_id,
         "name": name,
         "description": description,
-        "quantity": quantity,
-        "created_by": created_by
+        "quantity": quantity
       }
 
       let res = await fetch(`${ApiUrl}/items/${values.username}`, {
@@ -58,6 +58,7 @@ const CreateItem = () => {
         nav('/')
       } else if(res.status === 404){
         setFailedFeedback('post invalid')
+        console.log (res.json())
       } else {
         setFailedFeedback('error on submission')
       }
@@ -109,7 +110,6 @@ const CreateItem = () => {
                 value={description}
                 onChange={e => {setDescription(e.target.value)}}
               />
-              <p>{created_by.toDateString()}</p>
               <StyledButton variant="contained" onClick={handleSubmit}> Submit </StyledButton>
             </FormContainer>
           </form>
