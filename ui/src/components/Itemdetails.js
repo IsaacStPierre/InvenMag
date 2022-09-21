@@ -13,7 +13,7 @@ const Itemdetails = () => {
     name: "",
     description: "",
     quantity: "",
-    created_by: "",
+    username: "",
   });
   let [editView, setEditView] = useState(false);
   let [formChanged, setFormChanged] = useState(false);
@@ -129,7 +129,7 @@ const Itemdetails = () => {
       <ItemHeader>
         <p>Quantity: {Itemdetails.quantity}</p>
         <ItemName>Name: {Itemdetails.name}</ItemName>
-        <p>Created By: {Itemdetails.created_by}</p>
+        <p>Created By: {Itemdetails.username}</p>
       </ItemHeader>
       <ItemBody>
         Description:

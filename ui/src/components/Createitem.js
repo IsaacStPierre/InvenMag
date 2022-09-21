@@ -48,17 +48,19 @@ const CreateItem = () => {
         "quantity": quantity
       }
 
+      // console.log(body)
+
       let res = await fetch(`${ApiUrl}/items/${values.username}`, {
         method: 'POST',
         headers: { 'Description-Type': 'application/json' },
-        body: JSON.stringify(body)
+        body: body.stringify
       })
 
       if(res.status === 200) {
         nav('/')
       } else if(res.status === 404){
         setFailedFeedback('post invalid')
-        console.log (res.json())
+        console.log (res.body)
       } else {
         setFailedFeedback('error on submission')
       }

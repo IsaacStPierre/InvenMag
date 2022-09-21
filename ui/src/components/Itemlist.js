@@ -55,7 +55,7 @@ const Itemlist = () => {
             alt="loading"
           />
         ) : itemList.length > 0 ? (
-          itemList.map((item) => <Itemcard key={item.id} item={item} />)
+          itemList.map((item) => <Itemcard key={item.item_id} item={item} />)
         ) : (
           <>
             <h3>You don&apos;t have any items! </h3>{" "}

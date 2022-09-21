@@ -41,7 +41,7 @@ app.get("/items/:itemId", (req, res) => {
         "items.name as name",
         "items.description as description",
         "items.quantity as quantity",
-        "users.username as created_by"
+        "users.username as username"
       )
       .where("items.item_id", "=", itemId)
       .then((data) => {
@@ -67,7 +67,7 @@ app.get("/items/:username", (req, res) => {
       "items.name as name",
       "items.description as description",
       "items.quantity as quantity",
-      "users.username as created_by"
+      "users.username as username"
     )
     .where("users.username", "=", username)
     .then((data) => {
@@ -88,11 +88,12 @@ app.post("/items/:username", async (req, res) => {
   let validreq = false;
   let validUser = false;
   let userId = 0;
-  let keys = ['created_by', "name", "description", "quantity"];
+  let keys = ['user_id', "name", "description", "quantity"];
 
-  console.log(body[keys[0]])
-  console.log(body[keys[1]])
-  console.log(body[keys[2]])
+  console.log(`Key 0: ${body[keys[0]]}`)
+  console.log(`Key 1: ${body[keys[1]]}`)
+  console.log(`Key 2: ${body[keys[2]]}`)
+  console.log(`Key 3: ${body[keys[3]]}`)
 
   if (body[keys[0]] && body[keys[1]] && body[keys[2]] && body[keys[3]]) {
     console.log("valid request")
@@ -118,9 +119,9 @@ app.post("/items/:username", async (req, res) => {
   }
 
   let filteredBody = {
+    user_id: userId,
     name: body.name,
     description: body.description,
-    user_id: userId,
     quantity: body.quantity,
   };
 
