@@ -27,7 +27,7 @@ Itemcard.propTypes = {
 export default Itemcard;
 
 const Background = styled.div`
-  background-color: #2B659B;
+  background-color: #676767;
   width: 70vw;
   justify-content: center;
   margin: 20px 0px 20px 0px;

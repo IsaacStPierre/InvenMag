@@ -121,7 +121,7 @@ const Itemdetails = () => {
 
   const staticBody = values.isLoading ? (
     <img
-      src="https://miro.medium.com/max/1400/1*CsJ05WEGfunYMLGfsT2sXA.gif"
+      src="https://www.stanneseattle.org/wp-content/uploads/2022/06/loader.gif"
       width="360px"
       alt="loading"
     />
@@ -205,7 +205,7 @@ const Itemdetails = () => {
       <DetailsContainer>
         {values.isLoading ? (
           <img
-            src="https://miro.medium.com/max/1400/1*CsJ05WEGfunYMLGfsT2sXA.gif"
+            src="https://www.stanneseattle.org/wp-content/uploads/2022/06/loader.gif"
             width="360px"
             alt="loading"
           />
@@ -233,7 +233,7 @@ const EditButton = styled(MdEdit)`
   }
   &&:hover{
     cursor: pointer;
-    color: #00121c;
+    color: #343434;
   }
 `
 
@@ -246,7 +246,7 @@ const TrashButton = styled(HiTrash)`
   }
   &&:hover{
     cursor: pointer;
-    color: #00121c;
+    color: #343434;
   }
 `
 
@@ -256,7 +256,7 @@ const OptionsContainer = styled.div`
 `
 
 const Background = styled.div`
-  background-color: #00121C;
+  background-color: #343434;
   height: 90vh;
   width: 75vw;
   justify-content: center;
@@ -283,25 +283,25 @@ const ItemBody = styled.div`
 const DetailsContainer = styled.div`
   padding: 50px 10px 50px 10px;
   margin: auto;
-  background-color: #2B659B;
+  background-color: #676767;
   width: 65vw;
   height: auto;
 `
 
 const StyledButton = styled(Button)`
   &&{
-    background-color: #7E8C9B;
+    background-color: #343434;
     margin: 10px auto 10px auto;
     width: 150px;
   }
   &&:hover {
-    background-color: #002439;
+    background-color: #2D2E2E;
   }
 `
 
 const StyledInput = styled.input`
   &&{
-    background-color: #002439;
+    background-color: #2D2E2E;
     color: white;
     border-color: white;
     border-width: 2px;
@@ -310,7 +310,7 @@ const StyledInput = styled.input`
 `
 const StyledTextarea = styled.textarea`
 &&{
-  background-color: #002439;
+  background-color: #2D2E2E;
   color: white;
   border-color: white;
   border-width: 2px;

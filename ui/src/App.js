@@ -33,7 +33,7 @@ export default App;
 
 
 const Background = styled.div`
-  background-color: #002439;
+  background-image: url(https://s29755.pcdn.co/wp-content/uploads/2022/07/shutterstock_warehouse-interior.jpg);
   min-height:100vh;
   width: 100vw;
   color: white;

@@ -125,29 +125,29 @@ export default Login;
 
 const StyledLoginButton = styled(Button)`
   &&{
-    background-color: #3A87CF;
+    background-color: #676767;
     margin-top: 20px;
     font-weight: bold;
   }
   &&:hover {
-    background-color: #002439;
+    background-color: #665F4D;
   }
 `
 const StyledInput = styled.input`
   &&{
-    background-color: #002439;
+    background-color: #2D2E2E;
     color: white;
     border-color: white;
     border-width: 2px;
     border-radius: 10px;
   }
   // &&:hover {
-  //   background-color: #002439;
+  //   background-color: #2D2E2E;
   // }
 `
 
 const Background = styled.div`
-  background-color: #00121C;
+  background-color: #343434;
   height: 90vh;
   width: 75vw;
   justify-content: center;

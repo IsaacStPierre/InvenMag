@@ -202,13 +202,13 @@ export default Register;
 
 const RegisterButton = styled(Button)`
   && {
-    background-color: #3a87cf;
+    background-color: #676767;
     margin-top: 20px;
     color: black;
     font-weight: bold;
   }
   &&:hover {
-    background-color: #002439;
+    background-color: #665F4D;
   }
 `;
 const StyledInput = styled.input`

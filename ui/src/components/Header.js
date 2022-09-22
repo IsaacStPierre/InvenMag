@@ -52,12 +52,12 @@ export default Header;
 
 const StyledButton = styled(Button)`
   &&{
-    background-color: #002439;
+    background-color: #2D2E2E;
     height: 50px;
     width: 175px;
   }
   &&:hover {
-    background-color: #2b659b;
+    background-color: #676767;
   }
 `
 const FirstButtonWrapper = styled.div`
@@ -77,7 +77,7 @@ const ThirdButtonWrapper = styled.div`
 `
 
 const HeaderDiv = styled.div`
-  background-color: #1D4367;
+  background-color: #665F4D;
   position: relative;
   top: 0px;
   height: 100px;
@@ -97,7 +97,7 @@ const Logo = styled.div`
   left: 20px;
   :hover{
     transform: scale(1.05);
-    background-color: #002439;
+    background-color: #2D2E2E;
     border-radius: 4px;
   }
 `

@@ -50,7 +50,7 @@ const Itemlist = () => {
         <h1>{titleText}</h1>
         {values.isLoading ? (
           <img
-            src="https://miro.medium.com/max/1400/1*CsJ05WEGfunYMLGfsT2sXA.gif"
+            src="https://www.stanneseattle.org/wp-content/uploads/2022/06/loader.gif"
             width="360px"
             alt="loading"
           />
@@ -70,7 +70,7 @@ const Itemlist = () => {
 export default Itemlist;
 
 const Background = styled.div`
-  background-color: #00121c;
+  background-color: #343434;
   min-height: 90vh;
   width: 75vw;
   justify-content: center;
