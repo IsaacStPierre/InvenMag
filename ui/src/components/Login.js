@@ -22,7 +22,6 @@ const Login = () => {
   useEffect(() => {
     if(context.values.isLoggedIn === true){
       window.alert("You are logged in! Redirecting to your inventory")
-      console.log(values.user_id)
       nav(`/items/users/${values.user_id}`)
     }
   }, [context.values.isLoggedIn])
@@ -68,7 +67,6 @@ const Login = () => {
           .then(data => {
             context.setters.setUser_id(data[0].user_id)
             context.setters.setUsername(data[0].username)
-            console.log(data)
             context.setters.setIsLoggedIn(true);
           })
           .catch(err => console.log(err))

@@ -99,13 +99,11 @@ const Register = () => {
       });
 
       let newUser = await res.json();
-      console.log(`New user data: ${newUser}`);
 
       if (newUser.length > 0) {
         window.alert(
           "Your account has been created. You will now be logged in"
         );
-        console.log(newUser[0]);
         context.setters.setUser_id(newUser[0].user_id);
         context.setters.setIsLoggedIn(true);
       }

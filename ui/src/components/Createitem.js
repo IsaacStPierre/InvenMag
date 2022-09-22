@@ -48,8 +48,6 @@ const CreateItem = () => {
         "user_id": user_id,
       }
 
-      console.log(`New item: ${JSON.stringify(body)}`)
-
       let res = await fetch(`${ApiUrl}/items`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

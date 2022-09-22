@@ -25,5 +25,11 @@ exports.seed = async function (knex) {
       username: "walterwhite",
       password: hash,
     },
+    {
+      first_name: "New ",
+      last_name: "User",
+      username: "newuser",
+      password: hash,
+    },
   ]);
 };

@@ -38,7 +38,7 @@ const Itemlist = () => {
           setTimeout(() => setters.setIsLoading(false), 500);
         })
         .catch((err) => {
-          console.log(`err: `, err);
+          console.log(err);
           setTimeout(() => setters.setIsLoading(false), 500);
         });
     }
