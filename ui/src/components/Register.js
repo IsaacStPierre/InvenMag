@@ -105,6 +105,7 @@ const Register = () => {
           "Your account has been created. You will now be logged in"
         );
         context.setters.setUser_id(newUser[0].user_id);
+        context.setters.setUsername(newUser[0].username);
         context.setters.setIsLoggedIn(true);
       }
     }

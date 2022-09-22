@@ -79,6 +79,7 @@ const Itemdetails = () => {
       let body = {
         name: name,
         description: description,
+        quantity: quantity
       };
 
       let res = await fetch(`${ApiUrl}/items/${id}`, {
@@ -153,7 +154,7 @@ const Itemdetails = () => {
           <StyledInput
             type="text"
             id="name"
-            name="text"
+            name="name"
             value={name}
             onChange={(e) => {
               setName(e.target.value);
@@ -169,7 +170,7 @@ const Itemdetails = () => {
             quantity="quantity"
             value={quantity}
             onChange={(e) => {
-              setName(e.target.value);
+              setQuantity(e.target.value);
               setFormChanged(true);
             }}
           />
