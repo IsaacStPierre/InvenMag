@@ -14,14 +14,12 @@ exports.seed = async function (knex) {
   await knex("users").del();
   await knex("users").insert([
     {
-      user_id: 1,
       first_name: "Isaac",
       last_name: "St. Pierre",
       username: "isaacstpierre",
       password: hash,
     },
     {
-      user_id: 2,
       first_name: "Walter",
       last_name: "White",
       username: "walterwhite",

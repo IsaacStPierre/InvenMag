@@ -9,24 +9,24 @@ import { useLocation } from "react-router-dom";
 const Itemlist = () => {
   const { values, setters } = useContext(AppContext);
   let [itemList, setItemList] = useState([]);
-  let [titleText, setTitleText] = useState("All Items");
+  let [titleText, setTitleText] = useState("");
   let location = useLocation();
   const context = useContext(AppContext);
 
-  console.log(context.values.user_id)
+  console.log(`Logged in? ${values.isLoggedIn}, Path: ${location.pathname}, User ID: ${context.values.user_id}, Username: ${context.values.username}`)
 
   useEffect(() => {
     setters.setIsLoading(true);
-    if (values.isLoggedIn === true && location.pathname === "/") {
+    if (values.isLoggedIn === true && location.pathname.includes('/items/users/')) {
       setTitleText("My Items");
-      fetch(`${ApiUrl}/items/${values.username}`)
+      fetch(`${ApiUrl}/items/users/${values.user_id}`)
         .then((res) => res.json())
         .then((data) => {
           setItemList(data);
           setTimeout(() => setters.setIsLoading(false), 500);
         })
         .catch((err) => {
-          console.log(`err: `, err);
+          console.log(err);
           setTimeout(() => setters.setIsLoading(false), 500);
         });
     } else {

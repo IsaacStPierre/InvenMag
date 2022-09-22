@@ -21,8 +21,9 @@ const Login = () => {
 
   useEffect(() => {
     if(context.values.isLoggedIn === true){
-      window.alert("You are logged in! Redirecting to home page")
-      nav('/')
+      window.alert("You are logged in! Redirecting to your inventory")
+      console.log(values.user_id)
+      nav(`/items/users/${values.user_id}`)
     }
   }, [context.values.isLoggedIn])
 
@@ -61,13 +62,14 @@ const Login = () => {
 
       if(res.status === 200) {
         if(await res.text() === 'authenticated') {
-          context.setters.setIsLoggedIn(true);
           context.setters.setUsername(inputUsername);
           fetch(ApiUrl + `/users/${inputUsername}`)
           .then(res => res.json())
           .then(data => {
-            console.log(data)
             context.setters.setUser_id(data[0].user_id)
+            context.setters.setUsername(data[0].username)
+            console.log(data)
+            context.setters.setIsLoggedIn(true);
           })
           .catch(err => console.log(err))
         }

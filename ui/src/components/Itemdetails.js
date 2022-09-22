@@ -46,7 +46,7 @@ const Itemdetails = () => {
   const deletePost = () => {
     fetch(`${ApiUrl}/items/${id}`, { method: "DELETE" }).then((res) => {
       if (res.status === 200) {
-        nav("/");
+        nav(`/items/users/${values.user_id}`);
       } else {
         window.alert("an error has occurred");
       }
@@ -58,6 +58,7 @@ const Itemdetails = () => {
     let error = false;
     setNameFeedback("");
     setDescriptionFeedback("");
+    setQuantityFeedback("");
     setFailedFeedback("");
 
     if (name.length < 1) {
@@ -82,7 +83,7 @@ const Itemdetails = () => {
 
       let res = await fetch(`${ApiUrl}/items/${id}`, {
         method: "PATCH",
-        headers: { "Description-Type": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
 
@@ -145,6 +146,7 @@ const Itemdetails = () => {
         <FormContainer>
           <Feedback>{nameFeedback}</Feedback>
           <Feedback>{descriptionFeedback}</Feedback>
+          <Feedback>{quantityFeedback}</Feedback>
           <label htmlFor="name">
             <Labels>Name:</Labels>
           </label>
@@ -153,6 +155,19 @@ const Itemdetails = () => {
             id="name"
             name="text"
             value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+              setFormChanged(true);
+            }}
+          />
+          <label htmlFor="quantity">
+            <Labels>Quantity:</Labels>
+          </label>
+          <StyledInput
+            type="number"
+            id="quantity"
+            quantity="quantity"
+            value={quantity}
             onChange={(e) => {
               setName(e.target.value);
               setFormChanged(true);
@@ -196,7 +211,7 @@ const Itemdetails = () => {
           />
         ) : (
           <>
-            {values.isLoggedIn && Itemdetails.quantity === values.username
+            {values.isLoggedIn && Itemdetails.username === values.username
               ? options
               : null}
             {editView ? editBody : staticBody}

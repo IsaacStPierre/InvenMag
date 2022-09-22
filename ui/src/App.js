@@ -4,7 +4,6 @@ import Itemlist from './components/Itemlist'
 import Itemdetails from './components/Itemdetails'
 import Login from './components/Login'
 import Register from './components/Register'
-// import Profile from './components/Profile'
 import Createitem from './components/Createitem'
 import styled from 'styled-components'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -19,11 +18,11 @@ const App = () => {
           <Routes>
             <Route path='/' element={<Itemlist />} />
             <Route path='/items/all' element={<Itemlist />} />
+            <Route path='/items/users/:user_id' element={<Itemlist />} />
             <Route path='/items/new' element={<Createitem />} />
             <Route path='/items/:id' element={<Itemdetails />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
-            {/* <Route path='/profile' element={<Profile />} /> */}
           </Routes>
         </Router>
       </Background>

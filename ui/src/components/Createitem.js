@@ -42,22 +42,22 @@ const CreateItem = () => {
     if(!error) {
 
       let body = {
-        "user_id": user_id,
         "name": name,
         "description": description,
-        "quantity": quantity
+        "quantity": quantity ,
+        "user_id": user_id,
       }
 
-      // console.log(body)
+      console.log(`New item: ${JSON.stringify(body)}`)
 
-      let res = await fetch(`${ApiUrl}/items/${values.username}`, {
+      let res = await fetch(`${ApiUrl}/items`, {
         method: 'POST',
-        headers: { 'Description-Type': 'application/json' },
-        body: body.stringify
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
       })
 
       if(res.status === 200) {
-        nav('/')
+        nav(`/items/users/${user_id}`)
       } else if(res.status === 404){
         setFailedFeedback('post invalid')
         console.log (res.body)

@@ -22,7 +22,7 @@ app.get("/items", (req, res) => {
   knex("items")
     .select("*")
     .then((data) => {
-      console.log(data)
+      console.log(data);
       res.set("Access-Control-Allow-Origin", "*");
       res.status(200).send(data);
     });
@@ -55,71 +55,59 @@ app.get("/items/:itemId", (req, res) => {
   }
 });
 
-// GET items from username
-app.get("/items/:username", (req, res) => {
-  let { username } = req.params;
-  console.log(`servicing GET for /items/${username}`);
+// GET items from userid
+app.get("/items/users/:user_id", (req, res) => {
+  let { user_id } = req.params;
+  console.log(`servicing GET for /items/users/${user_id}`);
 
   knex("items")
     .join("users", "users.user_id", "=", "items.user_id")
     .select(
-      "items.item_id as id",
+      "items.item_id as item_id",
       "items.name as name",
       "items.description as description",
-      "items.quantity as quantity",
-      "users.username as username"
+      "items.quantity as quantity"
     )
-    .where("users.username", "=", username)
+    .where("users.user_id", "=", user_id)
     .then((data) => {
-      if (data.length > 0) {
-        res.set("Access-Control-Allow-Origin", "*");
-        res.status(200).send(data);
-      } else {
-        res.status(404).send();
-      }
+      res.set("Access-Control-Allow-Origin", "*");
+      res.status(200).send(data);
     });
 });
 
 // POST for new item
-app.post("/items/:username", async (req, res) => {
-  let { username } = req.params;
-  console.log(`servicing POST for /items/${username}`);
+app.post("/items", async (req, res) => {
+  console.log(`servicing POST for /items`);
   let body = req.body;
   let validreq = false;
   let validUser = false;
-  let userId = 0;
-  let keys = ['user_id', "name", "description", "quantity"];
-
-  console.log(`Key 0: ${body[keys[0]]}`)
-  console.log(`Key 1: ${body[keys[1]]}`)
-  console.log(`Key 2: ${body[keys[2]]}`)
-  console.log(`Key 3: ${body[keys[3]]}`)
+  let user_id = body.user_id;
+  let keys = ["user_id", "name", "description", "quantity"];
 
   if (body[keys[0]] && body[keys[1]] && body[keys[2]] && body[keys[3]]) {
-    console.log("valid request")
+    console.log(`valid request, user_id: ${user_id}`);
     validreq = true;
   } else {
-    console.log("invalid request")
+    console.log(`invalid request, user_id: ${user_id}`);
   }
 
-  if (username) {
+  if (user_id > 0) {
     await knex("users")
       .select("*")
-      .where("users.username", "=", username)
+      .where("users.user_id", "=", user_id)
       .then((data) => {
         if (data.length > 0) {
-          console.log("valid user")
+          console.log("valid user");
           validUser = true;
-          userId = data[0].user_id;
         } else {
-          console.log("invalid user")
+          console.log("invalid user");
           validUser = false;
         }
       });
   }
 
   let filteredBody = {
-    user_id: userId,
+    user_id: body.user_id,
     name: body.name,
     description: body.description,
     quantity: body.quantity,
@@ -139,35 +127,37 @@ app.post("/items/:username", async (req, res) => {
 });
 
 // PATCH to update item by id
-app.patch('/items/:itemId', async (req, res) => {
+app.patch("/items/:itemId", async (req, res) => {
   let { itemId } = req.params;
   console.log(`servicing PATCH for /items/${itemId}`);
   let body = req.body;
   let validreq = false;
 
-  let keys = ['name', 'description', 'quantity'];
+  let keys = ["name", "description", "quantity"];
+
+  console.log(body[keys[0]])
 
   if (body[keys[0]] || body[keys[1]] || body[keys[2]]) {
     validreq = true;
   }
 
-  if(validreq) {
-    knex('items')
-      .where('items.item_id', '=', itemId)
+  if (validreq) {
+    knex("items")
+      .where("items.item_id", "=", itemId)
       .update(body, keys)
       .then(() => {
-        knex('items')
-          .select('*')
-          .where('items.item_id', '=', itemId)
-          .then(data => {
+        knex("items")
+          .select("*")
+          .where("items.item_id", "=", itemId)
+          .then((data) => {
             res.set("Access-Control-Allow-Origin", "*");
             res.status(200).json(data);
-          })
-        })
-      } else {
-    res.status(404).send()
+          });
+      });
+  } else {
+    res.status(404).send();
   }
-})
+});
 
 // DELETE for an item by id
 app.delete("/items/:itemId", (req, res) => {
@@ -175,7 +165,7 @@ app.delete("/items/:itemId", (req, res) => {
   console.log(`servicing DELETE for /items/${itemId}`);
 
   knex("items")
-    .where("id", "=", itemId)
+    .where("item_id", "=", itemId)
     .del()
     .then((data) => {
       res.set("Access-Control-Allow-Origin", "*");
@@ -201,12 +191,11 @@ app.post("/users", async (req, res) => {
   let usernamePromise;
   let salt = bcrypt.genSaltSync(10);
 
-
   let keys = ["first_name", "last_name", "username", "password"];
 
   if (body[keys[0]] && body[keys[1]] && body[keys[2]] && body[keys[3]]) {
     validreq = true;
-    passwordHash = bcrypt.hashSync(body.password, salt)
+    passwordHash = bcrypt.hashSync(body.password, salt);
     filteredBody = {
       first_name: body[keys[0]],
       last_name: body[keys[1]],
@@ -226,12 +215,13 @@ app.post("/users", async (req, res) => {
   }
   await Promise.all([passwordHash, usernamePromise]);
   if (validreq && validUsername) {
-    console.log("valid account details")
+    console.log("valid account details");
     knex("users")
       .returning(["user_id", "first_name", "last_name", "username"])
       .insert(filteredBody)
       .then((data) => {
         res.set("Access-Control-Allow-Origin", "*");
+        console.log(data);
         res.status(200).send(data);
       });
   } else if (!validUsername) {
@@ -261,6 +251,7 @@ app.post("/login", async (req, res) => {
         if (data.length > 0) {
           bcrypt.compare(body.password, data[0].password).then((results) => {
             if (results) {
+              console.log("login success");
               res.set("Access-Control-Allow-Origin", "*");
               res.status(200).send("authenticated");
             } else {
@@ -277,25 +268,21 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// view user info
+// get user info
 app.get("/users/:username", (req, res) => {
   let { username } = req.params;
   console.log(`servicing GET for /users/${username}`);
-  if (isNaN(parseInt(username))) {
-    knex("users")
-      .where("username", "=", username)
-      .select("user_id", "first_name", "last_name", "username")
-      .then((data) => {
-        if (data.length > 0) {
-          res.set("Access-Control-Allow-Origin", "*");
-          res.status(200).send(data);
-        } else {
-          res.status(404).send();
-        }
-      });
-  } else {
-    console.log("invalid username");
-  }
+  knex("users")
+    .where("username", "=", username)
+    .select("user_id", "first_name", "last_name", "username")
+    .then((data) => {
+      if (data.length > 0) {
+        res.set("Access-Control-Allow-Origin", "*");
+        res.status(200).send(data);
+      } else {
+        res.status(404).send();
+      }
+    });
 });
 
 module.exports = app;

@@ -12,10 +12,9 @@ const Header = () => {
   if(values.isLoggedIn === true){
     navLinks = (
       <>
-        <Link to={'/profile'}>
+        <Link to={`/items/users/${values.user_id}`}>
           <FirstButtonWrapper>
-            <StyledButton variant="contained">User: {values.username}</StyledButton>
-
+            <StyledButton variant="contained">My Items</StyledButton>
           </FirstButtonWrapper>
         </Link>
         <Link to={'/items/all'}>
