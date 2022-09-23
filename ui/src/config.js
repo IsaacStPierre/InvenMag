@@ -5,7 +5,7 @@ const config = {
     },
 
     production: {
-        apiUrl: "https://zprefix-api.herokuapp.com/" // change this
+        apiUrl: "https://invenmag-api.herokuapp.com" // change this
     },
     test: {
         apiUrl: ''
